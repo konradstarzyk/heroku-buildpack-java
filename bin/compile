@@ -17,6 +17,11 @@ source <(curl -s --retry 3 -L $BUILDPACK_STDLIB_URL)
 
 export_env $ENV_DIR "." "JAVA_OPTS|JAVA_TOOL_OPTIONS"
 
+if [ -n "$GEMS" ]; then
+  status "Installing Gems..."
+  install_gems $CACHE_DIR $GEMS
+fi
+
 install_jdk ${BUILD_DIR}
 
 run_mvn "compile" $BUILD_DIR $CACHE_DIR

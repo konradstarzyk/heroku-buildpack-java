@@ -104,3 +104,17 @@ install_jdk() {
   install_java_with_overlay ${install_dir}
   mtime "jvm.install.time" "${start}"
 }
+
+install_gems() {
+  cache_dir=$1
+  gems=$2
+
+  if [ ! -d "${cache_dir}" ]; then error "Invalid cache directory to store Ruby gems."; fi
+
+  rm -rf "${cache_dir}/.gems" && mkdir -p "${cache_dir}/.gems"
+
+  gem install --no-rdoc --no-ri -i "${cache_dir}/.gems" ${gems} 2>&1 | indent
+
+  export PATH="${cache_dir}/.gems/bin:${PATH}"
+  export GEM_PATH="${cache_dir}/.gems:${GEM_PATH}"
+}
