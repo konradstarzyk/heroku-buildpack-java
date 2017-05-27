@@ -113,6 +113,9 @@ install_gems() {
   cache_dir=$1
   gems=$2
 
+  export GEM_HOME=$build_dir/.gem/ruby/2.3.0
+  PATH="$GEM_HOME/bin:$PATH"
+
   if [ ! -d "${cache_dir}" ]; then error "Invalid cache directory to store Ruby gems."; fi
 
   rm -rf "${cache_dir}/.gems" && mkdir -p "${cache_dir}/.gems"
@@ -122,3 +125,5 @@ install_gems() {
   export PATH="${cache_dir}/.gems/bin:${PATH}"
   export GEM_PATH="${cache_dir}/.gems:${GEM_PATH}"
 }
+
+
