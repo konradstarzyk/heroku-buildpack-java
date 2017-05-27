@@ -3,6 +3,10 @@
 export DEFAULT_MAVEN_VERSION="3.3.9"
 export BUILDPACK_STDLIB_URL="https://lang-common.s3.amazonaws.com/buildpack-stdlib/v7/stdlib.sh"
 
+status() {
+  echo "-----> $*"
+}
+
 install_maven() {
   local installDir=$1
   local buildDir=$2
